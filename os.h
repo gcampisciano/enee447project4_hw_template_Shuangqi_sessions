@@ -5,6 +5,8 @@
 //
 // some useful types
 //
+#ifndef OS_H
+#define OS_H
 typedef void (* pfv_t)();
 typedef int (* pfi_t)();
 typedef unsigned int (* pfu_t)();
@@ -185,3 +187,4 @@ extern void enable_irq ( void );
 extern void enable_fiq ( void );
 extern void disable_irq ( void );
 extern void disable_fiq ( void );
+#endif
