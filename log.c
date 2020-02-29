@@ -1,4 +1,4 @@
-
+#include "syscall.h"
 #include "os.h"
 
 
@@ -43,7 +43,7 @@ print_time()
 void
 log(char *msg, long num)
 {
-	switch (cpu_id()) {
+	switch (syscall_get_cpu_id()) {
 		case 0: 
 			uart_puts("[c0|");
 			break;

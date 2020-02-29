@@ -8,6 +8,7 @@ enum syscalls {
 	SYSCALL_WR_WORD,
 	SYSCALL_RD_STREAM,
 	SYSCALL_WR_STREAM,
+    SYSCALL_GET_CPU_ID,
 	// insert new ones here
 	MAX_SYSCALLS,
 };
@@ -17,4 +18,4 @@ int syscall_read_word(int device);
 int syscall_write_word(int device, long data);
 int syscall_read_stream(int device, void *buffer, int bufsize);
 int syscall_write_stream(int device, void *buffer, int bytes);
-
+int syscall_get_cpu_id();

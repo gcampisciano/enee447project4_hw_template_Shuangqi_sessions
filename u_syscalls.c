@@ -1,4 +1,5 @@
 
+
 #include "syscall.h"
 
 int
@@ -59,4 +60,16 @@ int
 syscall_write_stream(int device, void *buffer, int bytes)
 {
 	// your code goes here
+}
+
+int syscall_get_cpu_id() {
+	register long a asm("r0"); 
+	register long b asm("r7") = SYSCALL_GET_CPU_ID;
+	asm volatile ( 
+        "svc #0\n"
+        : "=r"(a)
+        : "r"(b)
+        : "memory"
+    );
+    return a;
 }

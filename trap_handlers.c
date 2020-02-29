@@ -39,6 +39,9 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
 	debug(DEBUG_LOW, " SPSR ", spsr);
 
 	switch (r7) {
+        case SYSCALL_GET_CPU_ID:
+            return cpu_id();
+            break;
 		// for non-error conditions, return from within the switch() statement
 		case SYSCALL_KVERSION:
 			debug(DEBUG_LOW, "SYSCALL_WR_WORD dev  = ", r0);
