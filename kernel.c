@@ -39,10 +39,32 @@ init_kernel()
 
     // wake up
 	log("...", NOVAL);
-    log("Please hit any key to continue.\n", NOVAL);
+    log("Please hit any key to continue and set up timer interrupt.\n", NOVAL);
 
     uart_recv();
 	set_timer();
 
 	return;
 }
+
+static int enbale_irq_print = 1;
+static int enable_irq_led_indicator = 0;
+static int led_is_on = 0;
+
+void irq_print() {
+    if (enable_irq_led_indicator) {
+        if (led_is_on) {
+            led_off();
+            led_is_on = 0;
+        }
+        else {
+            led_on();
+            led_is_on = 1;
+        }
+    }
+
+    if (enbale_irq_print) {
+        log("irq being handled", NOVAL);
+    }
+}
+

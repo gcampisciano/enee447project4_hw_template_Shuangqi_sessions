@@ -91,34 +91,14 @@ core0:
 	mov		sp, # KSTACK0
 	bl		init_kernel
 
+    
+
 	// set up user stack and jump to shell
 	cps		#USR_mode
 	mov		sp, # USTACK0
 	bl		run_shell
 //	bl		do_blinker
 	b hang
-
-.equ    T_bit,   0x20                @ Thumb bit (5) of CPSR/SPSR.
-old_svc_handler:
-    STMFD   sp!, {r0-r3, r12, lr}  @ Store registers
-    MOV     r1, sp                 @ Set pointer to parameters
-    MRS     r0, spsr               @ Get spsr
-    STMFD   sp!, {r0, r3}          @ Store spsr onto stack and another
-                                   @ register to maintain 8-byte-aligned stack
-    TST     r0, #T_bit             @ Occurred in Thumb state?
-    LDRNEH  r0, [lr,#-2]           @ Yes: Load halfword and...
-    BICNE   r0, r0, #0xFF00        @ ...extract comment field
-    LDREQ   r0, [lr,#-4]           @ No: Load word and...
-    BICEQ   r0, r0, #0xFF000000    @ ...extract comment field
-
-    @ r0 now contains SVC number
-    @ r1 now contains pointer to stacked registers
-
-    BL      trap_handler            @ Call main part of handler
-
-    LDMFD   sp!, {r0, r3}          @ Get spsr from stack
-    MSR     SPSR_cxsf, r0          @ Restore spsr
-    LDMFD   sp!, {r0-r3, r12, pc}^ @ Restore registers and return
 
 
 // courtesy of Prof Vince Weaver, U Maine
@@ -210,6 +190,7 @@ irq_nop:
     //
     bl  clear_timer_interrupt
 
+    bl irq_print
 
     @ clobber the user stack - simulates effect of another thread running
     @ clobber the user stack - simulates effect of another thread running

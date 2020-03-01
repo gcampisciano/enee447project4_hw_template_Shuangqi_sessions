@@ -1,4 +1,5 @@
 
+
 #include "os.h"
 
 #define CLOCK_BASE	0x3F003000
@@ -106,7 +107,8 @@ clear_timer_interrupt()
 void
 set_timer()
 {
-	PUT32(TIMER_Load, 10);	// time in millisecs
+    unsigned int timer_interrupt_interval_in_usec = 1000000;
+    PUT32(TIMER_Load, timer_interrupt_interval_in_usec);	
 
 	PUT32(Enable_IRQs_1, 64);
 	PUT32(Enable_Basic_IRQs, 0x1);
