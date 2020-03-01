@@ -47,22 +47,6 @@ hang: 	wfi
 		b hang
 
 core0:
-	// set up timer
-//	mov		r0, #1						@ turn on timer via the CNTP_CTL reg
-//	mcr		p15, 0, r0, c14, c2, 1		@ turn on timer via the CNTP_CTL reg
-
-//	ldr		r0, =19200000				@ counter frequency in Hz 
-//	mcr		p15, 0, r0, c14, c0, 0    	@ set the counter frequency
-//	ldr		r0, =40200000				@ set the initial timer value to count down from
-//	mcr		p15, 0, r0, c14, c2, 0		@ set the initial timer value to count down from
-
-//	mov		r0, #0x0F					@ timer generates IRQ interrupts 
-//	ldr		r1, =0x40000040				@ set up timer interrupts (base address)
-//	str		r0, [r1, #0]				@ set up timer interrupts to core 0
-//	str		r0, [r1, #4]				@ set up timer interrupts to core 1
-//	str		r0, [r1, #8]				@ set up timer interrupts to core 2
-//	str		r0, [r1, #12]				@ set up timer interrupts to core 3
-
 	// Initialize SPSR in all modes.
 	MOV    R0, #0
 	MSR    SPSR, R0
