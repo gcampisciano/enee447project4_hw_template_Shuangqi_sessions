@@ -43,23 +43,7 @@ print_time()
 void
 log(char *msg, long num)
 {
-	switch (syscall_get_cpu_id()) {
-		case 0: 
-			uart_puts("[c0|");
-			break;
-		case 1:
-			uart_puts("[c1|");
-			break;
-		case 2:
-			uart_puts("[c2|");
-			break;
-		case 3:
-			uart_puts("[c3|");
-			break;
-		default:
-			panic(ERRNO_ASSERT, "unkown core in console log function");
-			break;
-	}
+	uart_puts("[");
 	print_time();
 	uart_puts("] ");
 
