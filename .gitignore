@@ -8,3 +8,6 @@
 !things_to_copy_to_your_sd_card/start.elf
 .*.swp
 kversion.c
+!io.o
+!u_syscalls.o
+!trap_handlers.o

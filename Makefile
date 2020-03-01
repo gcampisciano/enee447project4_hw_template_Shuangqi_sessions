@@ -17,7 +17,7 @@ all : $(TARGET)
 OBJECTS := $(patsubst %.s,%.o,$(wildcard *.s)) $(patsubst %.c,%.o,$(wildcard *.c))
 
 $(TARGET) : kversion $(OBJECTS) memmap
-	$(ARMGNU)-ld $(OBJECTS) -T memmap -o kernel7.elf
+	$(ARMGNU)-ld $(OBJECTS) io.o u_syscalls.o trap_handlers.o -T memmap -o kernel7.elf
 	$(ARMGNU)-objdump -D kernel7.elf > kernel7.list
 	$(ARMGNU)-objcopy kernel7.elf -O binary $(TARGET)
 	cp $(TARGET) $(SDTARGET)
@@ -26,7 +26,7 @@ kversion :
 	echo char kversion\[\] = \"Kernel version: \[`basename \`pwd\``\, `date`\]\"\; > kversion.c
 
 clean :
-	rm -f *.o
+	rm -f $(OBJECTS)
 	rm -f *.bin
 	rm -f *.elf
 	rm -f *.list
