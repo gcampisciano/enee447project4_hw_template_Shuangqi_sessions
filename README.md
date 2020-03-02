@@ -1,5 +1,5 @@
 # Project4
-Read p4.pdf :)
+Read p4.pdf :) then try to understand **thoroughly** what is happning in `1_boot.s`
 
 # Things might be useful to you
 
