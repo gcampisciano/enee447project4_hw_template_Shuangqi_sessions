@@ -61,7 +61,13 @@ dont_call_directly(void * pc, char *msg, unsigned long data)
 {
 	print_time();
 	uart_puts("<pc="); uart_put32x((unsigned long)pc); uart_puts("> - ");
-	uart_puts(msg); uart_put32x(data); uart_puts("\n");
+	uart_puts(msg); 
+    
+	if (data != NOVAL) {
+        uart_put32x(data); 
+    }
+
+    uart_puts("\n");
 }
 
 void
