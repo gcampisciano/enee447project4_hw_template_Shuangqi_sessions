@@ -1,7 +1,11 @@
 # Project4
 Read p4.pdf :)
 
-# Useful things
+# Things might be useful to you
+
+## ARM assembly cheatsheet
+- [here](http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001l/QRC0001_UAL.pdf)
+
 ## To understand `push {r0-12, lr}`
 - [this site](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204j/Babefbce.html) says
     > Push registers onto, and pop registers off a full descending stack.
@@ -16,3 +20,4 @@ Read p4.pdf :)
 - According to [this site](http://www.keil.com/support/man/docs/armasm/armasm_dom1359731149945.htm), 
     - `ldr r13, =threadsave`: r13=address of the label threadsave
     - `ldr r13, threadsave`: r13=MEMORY[address of the label threadsave]
+
