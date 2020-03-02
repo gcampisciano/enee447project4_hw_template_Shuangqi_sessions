@@ -31,6 +31,9 @@ Read p4.pdf :) then try to understand **thoroughly** what is happning in `1_boot
     
 ## How to use assembly labels in C?
 - read [this](https://stackoverflow.com/questions/43532109/get-label-address-of-assembly-using-c)
+
+## What is the data tpye in C that corresponds to `word` in assembly?
+- According to this [site](https://gcc.gnu.org/onlinedocs/gccint/Type-Layout.html), by default, a `int` in C corresponds to a `word` in assembly.
     
 ## What is CPSR/SPSR? 
 - read [this](https://heyrick.eu/armwiki/The_Status_register)
