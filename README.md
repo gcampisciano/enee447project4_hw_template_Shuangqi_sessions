@@ -23,4 +23,4 @@ Read p4.pdf :)
 
 ## Why does `subs pc, lr, #4` is at the end of interrupt handler?
 - it sets pc=lr-4, where lr is pointing to interrupted thread
-    - why subtracts 4? Read [this](https://stackoverflow.com/questions/19909410/setting-irq-handler-in-arm-assembly)
+    - why subtract 4? Read [this](https://stackoverflow.com/questions/19909410/setting-irq-handler-in-arm-assembly)
