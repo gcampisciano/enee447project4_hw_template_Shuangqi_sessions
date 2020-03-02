@@ -29,5 +29,8 @@ Read p4.pdf :) then try to understand **thoroughly** what is happning in `1_boot
 ## How to use assembly labels in C?
 - read [this](https://stackoverflow.com/questions/43532109/get-label-address-of-assembly-using-c)
     
-## What is CPSR/SPSR? What is SVC/SYS/IRQ/FIQ/USR mode?
+## What is CPSR/SPSR? 
 - read [this](https://heyrick.eu/armwiki/The_Status_register)
+
+## What is SVC/SYS/IRQ/FIQ/USR mode?
+- read [this](https://heyrick.eu/armwiki/Processor_modes)
