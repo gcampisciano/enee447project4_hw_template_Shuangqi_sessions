@@ -21,3 +21,6 @@ Read p4.pdf :)
     - `ldr r13, =threadsave`: r13=address of the label threadsave
     - `ldr r13, threadsave`: r13=MEMORY[address of the label threadsave]
 
+## Why does `subs pc, lr, #4` is at the end of interrupt handler?
+- it sets pc=lr-4, where lr is pointing to interrupted thread
+    - why subtracts 4? Read [this](https://stackoverflow.com/questions/19909410/setting-irq-handler-in-arm-assembly)
