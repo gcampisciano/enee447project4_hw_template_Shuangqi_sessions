@@ -125,7 +125,7 @@ enum debug_levels {
 	DEBUG_NONE
 };
 
-#define DEBUG_LEVEL	DEBUG_NONE
+#define DEBUG_LEVEL	DEBUG_LOW
 
 extern void * GETPC();
 #if 0
@@ -187,4 +187,6 @@ extern void enable_irq ( void );
 extern void enable_fiq ( void );
 extern void disable_irq ( void );
 extern void disable_fiq ( void );
+
+void do_blinker();
 #endif
