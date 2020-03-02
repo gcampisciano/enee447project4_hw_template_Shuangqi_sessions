@@ -12,4 +12,5 @@ Read p4.pdf :)
 - [this site](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0283b/Babefbce.html) says
     > Registers are stored on the stack in numerical order, with the lowest numbered register at the lowest address.
 
-
+## To understand the difference between `ldr r13, =threadsave` and `ldr r13, threadsave`
+[this site](http://www.keil.com/support/man/docs/armasm/armasm_dom1359731149945.htm)
