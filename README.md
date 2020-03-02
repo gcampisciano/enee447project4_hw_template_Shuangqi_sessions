@@ -6,6 +6,9 @@ Read p4.pdf :) then try to understand **thoroughly** what is happning in `1_boot
 ## ARM assembly cheatsheet
 - [here](http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001l/QRC0001_UAL.pdf)
 
+## What is `sp` and `lr` registers in ARM?
+- read [this](https://stackoverflow.com/questions/8236959/what-are-sp-stack-and-lr-in-arm)
+
 ## To understand `push {r0-12, lr}`
 - [this site](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204j/Babefbce.html) says
     > Push registers onto, and pop registers off a full descending stack.
