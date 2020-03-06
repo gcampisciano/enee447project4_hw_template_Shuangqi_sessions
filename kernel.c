@@ -55,6 +55,7 @@ void irq_print() {
 
 extern int *current_threadsave;
 extern int threadsave_for_shell;
+extern int threadsave_for_blink;
 void schedule() {
     int **current_threadsave_ptr = &current_threadsave;
     int *threadsave_for_shell_ptr = &threadsave_for_shell;
