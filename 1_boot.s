@@ -128,36 +128,25 @@ svc_handler:
 current_threadsave:
             .word 0
 
-            .word 0
-            .word 0
 .global threadsave_for_shell
 threadsave_for_shell: 
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-            .word 0
-
+            .word 0 // SPSR
+            .word 0 // r0
+            .word 0 // r1
+            .word 0 // r2
+            .word 0 // r3
+            .word 0 // r4
+            .word 0 // r5
+            .word 0 // r6
+            .word 0 // r7
+            .word 0 // r8
+            .word 0 // r9
+            .word 0 // r10
+            .word 0 // r11
+            .word 0 // r12
+            .word 0 // r14_irq
+            .word 0 // r13 usr
+            .word 0 // r14_usr
 
 
 save_r13_irq: .word 0
@@ -171,36 +160,54 @@ badval: .word   0xdeadbeef
 @ based on code from rpi discussion boards
 @
 irq_nop:
-	// save user thread registers
+	// NOTE: CPSR has been saved into SPSR implicitly when the hardware transition from USR to IRQ mode
+	
+	// save context
     str     r13, save_r13_irq           @ save the IRQ stack pointer
     ldr     r13, current_threadsave 
-    add     r13, r13, #56               @ jump to middle of TCB for store up and store down
+    add     r13, r13, #60               @ jump to middle of TCB for store up and store down
+    
+    // after stmia, sp will remain the same according to this [site](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0068b/BABEFCIB.html)                   
+    //  > If Rn is in reglist: for an STMIA instruction, the value stored for Rn is the initial value of Rn if Rn is the lowest-numbered register in reglist
     stmia   sp, {sp, lr}^               @ store the USR stack pointer & link register, upwards
+    
     push    {r0-r12, lr}                @ store USR regs 0-12 and IRQ link register (r14), downwards
-    ldr r13, save_r13_irq
-    // done 
+    
+    // Since SPSR contains the conditional flags                               
+    //  of the interrupted user program, we need to thnk of it                 
+    //  as part of the context, too. So let's save it, too.                    
+    mrs r0, SPSR // Copy SPSR into R0                                          
+    push {r0}
+    // done saving context                                                     
 
+    // back to use IRQ stack 
+    ldr r13, save_r13_irq
 
     bl clear_timer_interrupt
     bl irq_print
 
     cps # SYS_mode
-
     bl schedule 
 
     cps # IRQ_mode
-	// reset the timer
 	bl		set_timer
-	// restore the registers
+	
+    // restore context
     ldr     r13, current_threadsave 
 
+    // restore SPSR                                                            
+    pop {r0} // this is SPSR                                                   
+    msr SPSR, r0 // Copy R0 into SPSR
+    
+    // restore the registers
     pop     {r0-r12, lr}                @ load USR regs 0-12 and IRQ link register (r14), upwards
-
-
     ldmia   sp, {sp, lr}^               @ load the USR stack pointer & link register, upwards
     nop                                 @ evidently it's a god idea to put a NOP after a LDMIA
     ldr     r13, save_r13_irq           @ restore the IRQ stack pointer from way above
+    // done restoring context
 
+    // return to user program
+    // NOTE: it will copy SPSR into CPSR implicitly
     subs    pc, lr, #4                  @ return from exception
 
 
