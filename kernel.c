@@ -59,4 +59,5 @@ extern int threadsave_for_blink;
 void schedule() {
     int **current_threadsave_ptr = &current_threadsave;
     int *threadsave_for_shell_ptr = &threadsave_for_shell;
+    int *threadsave_for_blink_ptr = &threadsave_for_blink;
 }
