@@ -86,10 +86,14 @@ core0:
     str r0, current_threadsave
 
 	// enter IRQ_mode on timer interval
+	cps		#IRQ_mode
 	
 	// In IRQ_mode save current context and switch to other context
+	bl irq_nop
 	
 	// Return to User mode and run other program
+	cps		#USR_mode
+	mov		sp, # user_stack_for_blink
 	
 	bl		run_shell
 //	bl		do_blinker
