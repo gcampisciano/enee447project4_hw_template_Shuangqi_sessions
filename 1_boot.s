@@ -15,6 +15,7 @@ _start:
 .equ    SVCSTACK0 , 0xd0000
 .equ    KSTACK0   , 0xc0000
 .equ    user_stack_for_shell, 0x80000
+.equ	user_stack_for_blink, 0x90000
 
 .equ	USR_mode,	0x10
 .equ	FIQ_mode,	0x11
@@ -84,6 +85,12 @@ core0:
     ldr r0, =threadsave_for_shell
     str r0, current_threadsave
 
+	// enter IRQ_mode on timer interval
+	
+	// In IRQ_mode save current context and switch to other context
+	
+	// Return to User mode and run other program
+	
 	bl		run_shell
 //	bl		do_blinker
 	b hang
