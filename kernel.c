@@ -24,7 +24,7 @@ init_kernel()
     uart_puts("\n\n");
 	log("...", NOVAL);
     log("System is booting, cpuid = ", cpu_id());
-	log(kversion, NOVAL);
+	// log(kversion, NOVAL);
 
 	if (DEBUG_MED >= DEBUG_LEVEL) {
 		log("Available devices:", NOVAL);
