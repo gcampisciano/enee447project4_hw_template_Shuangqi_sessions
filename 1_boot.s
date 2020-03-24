@@ -84,21 +84,40 @@ core0:
 
     ldr r0, =threadsave_for_shell
     str r0, current_threadsave
-
-	// enter IRQ_mode on timer interval
-	cps		#IRQ_mode
+    
+    bl run_shell_IRQ
+    
+    b hang
 	
+run_blink_IRQ: 
+	
+	// Run Blink
+	bl		do_blinker
+	
+	// enter IRQ_mode
+	cps		#IRQ_mode
 	// In IRQ_mode save current context and switch to other context
 	bl irq_nop
+	// Return to user mode
+	cps 		#USR_mode
 	
-	// Return to User mode and run other program
-	cps		#USR_mode
-	mov		sp, # user_stack_for_blink
+	// Switch to Shell
+	bl		run_shell_IRQ
 	
+run_shell_IRQ:
+	
+	// Run Shell
 	bl		run_shell
-//	bl		do_blinker
-	b hang
-
+	
+	// enter IRQ_mode
+	cps		#IRQ_mode
+	// In IRQ_mode save current context and switch to other context
+	bl irq_nop
+	// Return to user mode
+	cps 		#USR_mode
+	
+	// Switch to Blink
+	bl		run_blink_IRQ
 
 // courtesy of Prof Vince Weaver, U Maine
 svc_handler:
